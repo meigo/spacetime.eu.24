@@ -1,0 +1,154 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+import bg1 from "../assets/bg1.jpg";
+import bg2 from "../assets/bg2.jpg";
+import bg3 from "../assets/bg3.jpg";
+
+import bg1_blur from "../assets/bg1_blur.jpg";
+import bg2_blur from "../assets/bg2_blur.jpg";
+import bg3_blur from "../assets/bg3_blur.jpg";
+
+import storageSvg from "../assets/storage.svg";
+import logoSvg from "../assets/st-logo.svg";
+import ScrollButton from "../components/ScrollButton.astro";
+
+import BgImageFader from "../components/BgImageFader.astro";
+---
+
+<Layout title="Spacetime">
+  <h1 class="fixed text-xs text-white opacity-5 -top-10">Spacetime</h1>
+
+  <div id="bg-images" class="fixed w-screen h-screen">
+    <BgImageFader data={[bg1, bg2, bg3]} />
+  </div>
+
+  <div id="bg-images-blur" class="fixed w-screen h-screen opacity-0">
+    <BgImageFader data={[bg1_blur, bg2_blur, bg3_blur]} />
+  </div>
+
+  <div id="scroll-container" class="relative overflow-y-auto h-full w-full scroll-smooth px-4">
+    <!-- PAGE 1 -->
+    <div id="page1" class="flex flex-col justify-center items-center min-h-screen w-full snap-start">
+      <div class="io opacity-0 font-inter text-8vw sm:text-5xl" data-delay="0.5s" data-animation="ani-slide-fade-left">
+        Storage solutions
+      </div>
+      <div class="io opacity-0 font-inter font-semibold text-8vw sm:text-5xl" data-delay="1s" data-animation="ani-slide-fade-left">
+        Light-years ahead
+      </div>
+
+      <ScrollButton id="scroll-down-button" href="#page2" position="bottom" />
+    </div>
+
+    <!-- PAGE 2 -->
+    <div id="page2" class="flex justify-center items-center min-h-screen w-full snap-center pb-12 pt-4">
+      <div class="md:max-w-[75vw] xl:max-w-[1000px] flex flex-col lg:flex-row">
+        <!-- LEFT -->
+        <div class="">
+          <div class="text-md io opacity-0" data-delay="0" data-animation="ani-slide-fade-up">
+            <p>
+              At SpaceTime, we deliver a storage-as-a-service solution that outperforms hyperscaler storage with exceptional performance and
+              limitless workload possibilities.
+            </p>
+            <p class="mt-4">
+              We equip local Managed Service Providers (MSPs) to compete against hyperscalers by simplifying storage management and
+              dramatically reducing costs, enabling them to access new opportunities and scale their services efficiently.
+            </p>
+          </div>
+
+          <div class="mt-12 sm:grid grid-cols-2">
+            <!-- CARD 1 -->
+            <div class="sm:pr-4 io opacity-0" data-delay="0.1s" data-animation="ani-slide-fade-up">
+              <div class="bg-white rounded-md w-full h-full bg-opacity-10 p-8">
+                <div class="text-xs uppercase tracking-[.25em]">Storage in Production</div>
+                <div class="flex flex-row mt-4 items-center justify-start">
+                  <div class="pr-4"><img src={storageSvg.src} alt="" class="w-full h-full max-h-12" /></div>
+                  <div class="text-3xl">70PB</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- CARD 2 -->
+            <div class="sm:pl-4 io opacity-0" data-delay="0.2s" data-animation="ani-slide-fade-up">
+              <div class="bg-white bg-opacity-10 rounded-md w-full h-full p-8 mt-8 sm:mt-0">
+                <div class="text-xs uppercase tracking-[.25em]">Trusted by</div>
+                <div class="flex flex-col mt-4 justify-start">
+                  <div class="flex flex-row items-center justify-start">
+                    <div class="text-3xl">5000+</div>
+                    <div class="text-sm ml-4">SMBS</div>
+                  </div>
+                  <div class="flex flex-row items-center justify-start">
+                    <div class="text-3xl">100+</div>
+                    <div class="text-sm ml-4">PUBLIC SECTOR UNITS</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT -->
+        <div class="lg:ml-16 flex flex-col mt-12 lg:mt-0 io opacity-0" data-delay="0.3s" data-animation="ani-slide-fade-up">
+          <div class="text-xs uppercase tracking-[.25em] w-max">WANT TO KNOW MORE?</div>
+          <div class="text-md mt-4">Contact us and let’s talk.</div>
+          <div class="text-md bg-white text-black rounded-full py-1 px-6 mt-6 max-w-min hover:bg-neutral-200">
+            <a href="mailto:hello@spacetime.eu" aria-label="Email button">hello@spacetime.eu</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="fixed w-full top-0 left-0 right-0">
+    <a href="/"><img src={logoSvg.src} alt="Spacetime logo" class="max-h-16 bg-black p-4" /></a>
+  </div>
+</Layout>
+
+<script>
+  //*******************************************************************************************************************/
+
+  // @ts-ignore
+  const scrollContainer: HTMLElement = document.getElementById("scroll-container");
+  // @ts-ignore
+  const bgImages: HTMLElement = document.getElementById("bg-images");
+  // @ts-ignore
+  const bgImagesBlur: HTMLElement = document.getElementById("bg-images-blur");
+  // @ts-ignore
+  const page1: HTMLElement = document.getElementById("page1");
+  // @ts-ignore
+  const page2: HTMLElement = document.getElementById("page2");
+  // @ts-ignore
+  const scrollDownButton: HTMLElement = document.getElementById("scroll-down-button");
+
+  scrollContainer.addEventListener("scroll", () => {
+    let scroll = scrollContainer.scrollTop / window.innerHeight;
+    bgImages.style.opacity = (1 - scroll).toString();
+    bgImagesBlur.style.opacity = (scroll * 0.4).toString();
+    scrollDownButton.style.opacity = (1 - scroll * 10).toString();
+  });
+
+  //*******************************************************************************************************************/
+
+  let observer = new IntersectionObserver((entries, observer) => {
+    entries.forEach((entry) => {
+      let target = entry.target as HTMLElement;
+      let delay = target.dataset.delay;
+      let animation = target.dataset.animation || "ani-none";
+
+      if (entry.isIntersecting) {
+        if (!target.classList.contains(animation)) {
+          target.classList.add(animation);
+          if (delay) target.style.animationDelay = delay;
+        }
+
+        // observer.unobserve(entry.target);
+      } else {
+        entry.target.classList.remove(animation);
+      }
+    });
+  });
+
+  document.querySelectorAll("div.io").forEach((e) => {
+    observer.observe(e);
+  });
+</script>

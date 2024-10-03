@@ -1,0 +1,17 @@
+---
+import chevronSvg from "../assets/chevron-down.svg";
+
+interface Props {
+  id: string;
+  href?: string;
+  position: "top" | "bottom";
+}
+
+const { id, href = "", position = "top" } = Astro.props;
+---
+
+<div id={id} class="pb-4 fixed bg-white rounded-full w-14 h-14 p-2 bg-opacity-5 hover:bg-opacity-10 bottom-2 hover:scale-105">
+  <a href={href} aria-label="Scroll down.">
+    <img src={chevronSvg.src} alt="" width="40" height="40" />
+  </a>
+</div>

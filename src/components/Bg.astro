@@ -1,0 +1,28 @@
+---
+import bg1 from "../assets/sp_16_9.png";
+import bg2 from "../assets/sp_16_9_2.png";
+import bg3 from "../assets/sp_16_9_3.png";
+
+import BgImageFader from "../components/BgImageFader.astro";
+---
+
+<div id="bg-image" class="fixed w-screen h-screen">
+  <BgImageFader data={[bg1, bg2, bg3]} />
+</div>
+
+<script>
+  // @ts-ignore
+  const scrollContainer: HTMLElement = document.getElementById("scroll-container");
+  // @ts-ignore
+  const bgImage: HTMLElement = document.getElementById("bg-image");
+  // @ts-ignore
+  const page1: HTMLElement = document.getElementById("page1");
+  // @ts-ignore
+  const page2: HTMLElement = document.getElementById("page2");
+
+  scrollContainer.addEventListener("scroll", () => {
+    let scroll = scrollContainer.scrollTop / window.innerHeight;
+    let blur = scroll * 10;
+    bgImage.style.filter = "blur(" + blur + "px)";
+  });
+</script>
