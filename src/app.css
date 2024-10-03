@@ -22,12 +22,13 @@
 
   html,
   body {
-    @apply m-0 h-full bg-black;
+    @apply m-0 h-full snap-y snap-mandatory scroll-smooth bg-black;
   }
 
   body {
-    @apply overflow-hidden text-white;
-    @apply font-inter m-0 p-0;
+    /* @apply overflow-hidden text-white; */
+    @apply text-white;
+    @apply m-0 p-0 font-inter;
   }
 
   img {
