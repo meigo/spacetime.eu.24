@@ -99,8 +99,8 @@ import BgImageFader from "../components/BgImageFader.astro";
     </div>
   </div>
 
-  <div class="fixed w-full top-0 left-0 right-0">
-    <a href="/"><img src={logoSvg.src} alt="Spacetime logo" class="max-h-16 bg-black p-4" /></a>
+  <div id="st-logo" class="fixed w-full top-0 left-0 right-0">
+    <a href="/"><img src={logoSvg.src} alt="Spacetime logo" class="max-h-16 p-4" /></a>
   </div>
 </Layout>
 
@@ -119,12 +119,15 @@ import BgImageFader from "../components/BgImageFader.astro";
   const page2: HTMLElement = document.getElementById("page2");
   // @ts-ignore
   const scrollDownButton: HTMLElement = document.getElementById("scroll-down-button");
+  // @ts-ignore
+  const stLogo: HTMLElement = document.getElementById("st-logo");
 
   scrollContainer.addEventListener("scroll", () => {
     let scroll = scrollContainer.scrollTop / window.innerHeight;
     bgImages.style.opacity = (1 - scroll).toString();
     bgImagesBlur.style.opacity = (scroll * 0.4).toString();
     scrollDownButton.style.opacity = (1 - scroll * 10).toString();
+    stLogo.style.opacity = (1 - scroll * 10).toString();
   });
 
   //*******************************************************************************************************************/
