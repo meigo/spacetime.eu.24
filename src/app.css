@@ -22,14 +22,11 @@
 
   html,
   body {
-    /* @apply m-0 h-full snap-y snap-mandatory scroll-smooth bg-black; */
-    @apply m-0 h-full scroll-smooth bg-black;
+    @apply m-0 scroll-smooth bg-black p-0;
   }
 
   body {
-    /* @apply overflow-hidden text-white; */
-    @apply text-white;
-    @apply m-0 p-0 font-inter;
+    @apply font-inter text-white;
   }
 
   img {

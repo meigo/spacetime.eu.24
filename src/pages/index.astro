@@ -29,8 +29,8 @@ import BgImageFader from "../components/BgImageFader.astro";
 
   <!-- PAGE 1 -->
   <div id="page1" class="flex flex-col justify-center items-center min-h-screen w-full snap-start">
-    <div class="io opacity-0 font-inter text-8vw sm:text-5xl" data-delay="0.5s" data-animation="ani-slide-fade-left">Storage solutions</div>
-    <div class="io opacity-0 font-inter font-semibold text-8vw sm:text-5xl" data-delay="1s" data-animation="ani-slide-fade-left">
+    <div class="io opacity-0 font-inter text-8vw sm:text-5xl" data-delay="0.5s" data-animation="ani-slide-fade-up">Storage solutions</div>
+    <div class="io opacity-0 font-inter font-semibold text-8vw sm:text-5xl" data-delay="1s" data-animation="ani-slide-fade-up">
       Light-years ahead
     </div>
 
@@ -113,11 +113,16 @@ import BgImageFader from "../components/BgImageFader.astro";
   const stLogo: HTMLElement = document.getElementById("st-logo");
 
   document.addEventListener("scroll", () => {
-    let scroll = window.scrollY / window.innerHeight;
+    const scroll = window.scrollY / window.innerHeight;
     bgImages.style.opacity = (1 - scroll).toString();
     bgImagesBlur.style.opacity = (scroll * 0.4).toString();
-    scrollDownButton.style.opacity = (1 - scroll * 10).toString();
-    stLogo.style.opacity = (1 - scroll * 10).toString();
+
+    const scrollButtonOpacity = Math.min(1, Math.max(0, 2 - scroll * 10));
+    scrollDownButton.style.opacity = scrollButtonOpacity.toString();
+    scrollDownButton.style.pointerEvents = scrollButtonOpacity > 0 ? "auto" : "none";
+
+    const logoOpacity = Math.min(1, Math.max(0, 3.5 - scroll * 10));
+    stLogo.style.opacity = logoOpacity.toString();
   });
 
   //*******************************************************************************************************************/
